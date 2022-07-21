@@ -1,13 +1,10 @@
 ﻿namespace Common.Pooling
 {
-    public class RepoolablePool<T> : APool<IRepoolable<T>>
+    public class RepoolablePool<T> : ARepoolablePool<T>
     {
-        protected readonly IPool<T> _subpool;
-
         public RepoolablePool(int capacity, IPool<T> subpool) :
-            base(capacity)
+            base(capacity, subpool)
         {
-            _subpool = subpool;
         }
 
         public override IRepoolable<T> Construct()
@@ -18,12 +15,6 @@
         public override void Destroy(IRepoolable<T> item)
         {
             item.Dispose();
-        }
-
-        public override void Dispose()
-        {
-            _subpool.Dispose();
-            base.Dispose();
         }
     }
 }

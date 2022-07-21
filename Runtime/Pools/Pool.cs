@@ -1,5 +1,8 @@
 ﻿namespace Common.Pooling
 {
+    /// <summary>
+    /// <see cref="APool{T}"/> handling new() types
+    /// </summary>
     public class Pool<T> : APool<T>
         where T : new()
     {

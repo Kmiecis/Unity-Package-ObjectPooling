@@ -2,6 +2,9 @@
 
 namespace Common.Pooling
 {
+    /// <summary>
+    /// A <see cref="MonoBehaviour"/> <see cref="BehaviourPool{T}"/>
+    /// </summary>
     public class PoolBehaviour<T> : MonoBehaviour, IPool<T>
         where T : MonoBehaviour
     {
@@ -67,6 +70,9 @@ namespace Common.Pooling
         }
     }
 
+    /// <summary>
+    /// <see cref="PoolBehaviour{T}"/> of <see cref="MonoBehaviour"/>
+    /// </summary>
     public class PoolBehaviour : PoolBehaviour<MonoBehaviour>
     {
     }

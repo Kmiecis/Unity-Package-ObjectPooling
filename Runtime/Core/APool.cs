@@ -2,6 +2,9 @@
 
 namespace Common.Pooling
 {
+    /// <summary>
+    /// Base <see cref="IPool{T}"/> implementation
+    /// </summary>
     public abstract class APool<T> : IPool<T>
     {
         protected readonly int _capacity;

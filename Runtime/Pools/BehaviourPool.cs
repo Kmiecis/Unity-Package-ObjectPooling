@@ -2,6 +2,9 @@
 
 namespace Common.Pooling
 {
+    /// <summary>
+    /// <see cref="APool{T}"/> handling <see cref="MonoBehaviour"/> types
+    /// </summary>
     public class BehaviourPool<T> : APool<T>
         where T : MonoBehaviour
     {

@@ -2,7 +2,10 @@
 
 namespace Common.Pooling
 {
-    public class DelegatePool<T> : APool<T>
+    /// <summary>
+    /// <see cref="APool{T}"/> with custom delegate support
+    /// </summary>
+    public sealed class DelegatePool<T> : APool<T>
         where T : class
     {
         private Func<T> _constructor;
