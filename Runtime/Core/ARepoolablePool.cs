@@ -1,5 +1,8 @@
 namespace Common.Pooling
 {
+    /// <summary>
+    /// Base <see cref="APool{T}"/> implementation for <see cref="IRepoolable{T}"/> item handling
+    /// </summary>
     public abstract class ARepoolablePool<T> : APool<IRepoolable<T>>
     {
         protected readonly IPool<T> _subpool;

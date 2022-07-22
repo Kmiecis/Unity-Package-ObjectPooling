@@ -1,5 +1,8 @@
 ﻿namespace Common.Pooling
 {
+    /// <summary>
+    /// Base <see cref="APool{T}"/> implementation for <see cref="IReusable"/> item handling
+    /// </summary>
     public abstract class AReusablePool<T> : APool<T>
         where T : IReusable
     {

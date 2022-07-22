@@ -2,7 +2,10 @@
 
 namespace Common.Pooling
 {
-    public class DelegateReusablePool<T> : AReusablePool<T>
+    /// <summary>
+    /// <see cref="AReusablePool{T}"/> with custom delegate support
+    /// </summary>
+    public sealed class DelegateReusablePool<T> : AReusablePool<T>
         where T : class, IReusable
     {
         private Func<T> _constructor;

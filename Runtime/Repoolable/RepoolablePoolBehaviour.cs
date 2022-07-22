@@ -2,6 +2,9 @@
 
 namespace Common.Pooling
 {
+    /// <summary>
+    /// A <see cref="MonoBehaviour"/> <see cref="RepoolablePool{T}"/>
+    /// </summary>
     public class RepoolablePoolBehaviour<T> : MonoBehaviour, IPool<IRepoolable<T>>
         where T : MonoBehaviour, IReusable
     {
@@ -69,13 +72,10 @@ namespace Common.Pooling
         }
     }
 
+    /// <summary>
+    /// <see cref="RepoolablePoolBehaviour{T}"/> of <see cref="ReusableBehaviour"/>
+    /// </summary>
     public class RepoolablePoolBehaviour : RepoolablePoolBehaviour<ReusableBehaviour>
     {
-        public override IRepoolable<ReusableBehaviour> Borrow()
-        {
-            var item = base.Borrow();
-            item.Value.transform.SetParent(this.transform);
-            return item;
-        }
     }
 }

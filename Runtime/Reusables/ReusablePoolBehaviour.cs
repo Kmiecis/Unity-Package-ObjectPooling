@@ -2,6 +2,9 @@
 
 namespace Common.Pooling
 {
+    /// <summary>
+    /// A <see cref="MonoBehaviour"/> <see cref="ReusableBehaviourPool{T}"/>
+    /// </summary>
     public class ReusablePoolBehaviour<T> : MonoBehaviour, IPool<T>
         where T : MonoBehaviour, IReusable
     {
@@ -67,6 +70,9 @@ namespace Common.Pooling
         }
     }
 
+    /// <summary>
+    /// <see cref="ReusablePoolBehaviour{T}"/> of <see cref="ReusableBehaviour"/>
+    /// </summary>
     public class ReusablePoolBehaviour : ReusablePoolBehaviour<ReusableBehaviour>
     {
         public override ReusableBehaviour Borrow()

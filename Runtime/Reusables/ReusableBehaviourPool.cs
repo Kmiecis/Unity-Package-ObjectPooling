@@ -2,6 +2,9 @@
 
 namespace Common.Pooling
 {
+    /// <summary>
+    /// <see cref="AReusablePool{T}"/> handling <see cref="MonoBehaviour"/> types
+    /// </summary>
     public class ReusableBehaviourPool<T> : AReusablePool<T>
         where T : MonoBehaviour, IReusable
     {

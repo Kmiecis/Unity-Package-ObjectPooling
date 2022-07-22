@@ -1,5 +1,8 @@
 ﻿namespace Common.Pooling
 {
+    /// <summary>
+    /// Base <see cref="IRepoolable{T}"/> implementation
+    /// </summary>
     public class Repoolable<T> : IRepoolable<T>
     {
         protected readonly IPool<T> _pool;
