@@ -4,6 +4,7 @@
     /// <see cref="ARepoolablePool{T}"/> using <see cref="Repoolable{T}"/> wrapper
     /// </summary>
     public class RepoolablePool<T> : ARepoolablePool<T>
+        where T : class
     {
         public RepoolablePool(int capacity, IPool<T> subpool) :
             base(capacity, subpool)

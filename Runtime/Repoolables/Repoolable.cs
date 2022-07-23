@@ -4,6 +4,7 @@
     /// Base <see cref="IRepoolable{T}"/> implementation
     /// </summary>
     public class Repoolable<T> : IRepoolable<T>
+        where T : class
     {
         protected readonly IPool<T> _pool;
         protected T _value;
@@ -30,8 +31,9 @@
             if (_value != null)
             {
                 _pool.Return(_value);
+
+                _value = null;
             }
-            _value = default;
         }
 
         public static implicit operator T(Repoolable<T> repoolable)
