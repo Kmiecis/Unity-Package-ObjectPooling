@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Common.Pooling
 {
@@ -7,9 +8,8 @@ namespace Common.Pooling
     /// </summary>
     public abstract class APool<T> : IPool<T>
     {
-        protected readonly int _capacity;
         protected readonly Queue<T> _pool;
-
+        protected int _capacity;
         protected int _constructed;
 
         public APool(int capacity)
@@ -36,7 +36,8 @@ namespace Common.Pooling
         
         public void Initialize(int count)
         {
-            for (int i = 0; i < count; ++i)
+            var constructed = Math.Min(count, _capacity);
+            for (int i = 0; i < constructed; ++i)
             {
                 Return(WrappedConstruct());
             }
@@ -100,6 +101,12 @@ namespace Common.Pooling
         public int InactiveCount
         {
             get => _pool.Count;
+        }
+
+        public int Capacity
+        {
+            get => _capacity;
+            set => _capacity = value;
         }
 
         public virtual void Dispose()
