@@ -6,7 +6,7 @@ namespace Common.Pooling
     /// A <see cref="MonoBehaviour"/> <see cref="RepoolablePool{T}"/>
     /// </summary>
     public class RepoolablePoolBehaviour<T> : MonoBehaviour, IPool<IRepoolable<T>>
-        where T : MonoBehaviour, IReusable
+        where T : MonoBehaviour
     {
         [Header("Pooling")]
         [SerializeField]
@@ -30,6 +30,16 @@ namespace Common.Pooling
             _pool.Return(item);
         }
 
+        public virtual int Capacity
+        {
+            get => _capacity;
+            set
+            {
+                _capacity = value;
+                _pool.Capacity = value;
+            }
+        }
+
         public virtual void Dispose()
         {
             _pool.Dispose();
@@ -37,7 +47,7 @@ namespace Common.Pooling
 
         protected virtual void Awake()
         {
-            var subpool = new ReusableBehaviourPool<T>(_capacity, _prefab);
+            var subpool = new BehaviourPool<T>(_capacity, _prefab);
             _pool = new RepoolablePool<T>(_capacity, subpool);
         }
 

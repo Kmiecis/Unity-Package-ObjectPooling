@@ -30,6 +30,16 @@ namespace Common.Pooling
             _pool.Return(item);
         }
 
+        public virtual int Capacity
+        {
+            get => _capacity;
+            set
+            {
+                _capacity = value;
+                _pool.Capacity = value;
+            }
+        }
+
         public virtual void Dispose()
         {
             _pool.Dispose();
@@ -64,7 +74,7 @@ namespace Common.Pooling
     /// <summary>
     /// <see cref="PoolBehaviour{T}"/> of <see cref="MonoBehaviour"/>
     /// </summary>
-    public class PoolBehaviour : PoolBehaviour<MonoBehaviour>
+    public class PoolBehaviour : PoolBehaviour<ReusableBehaviour>
     {
     }
 }

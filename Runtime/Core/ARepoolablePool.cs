@@ -5,9 +5,9 @@ namespace Common.Pooling
     /// </summary>
     public abstract class ARepoolablePool<T> : APool<IRepoolable<T>>
     {
-        protected readonly APool<T> _subpool;
+        protected readonly IPool<T> _subpool;
 
-        public ARepoolablePool(int capacity, APool<T> subpool) :
+        public ARepoolablePool(int capacity, IPool<T> subpool) :
             base(capacity)
         {
             _subpool = subpool;

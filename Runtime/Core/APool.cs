@@ -42,14 +42,21 @@ namespace Common.Pooling
                 Return(WrappedConstruct());
             }
         }
-        
-        public virtual T Borrow()
+
+        protected T WrappedBorrow()
         {
             if (_pool.Count == 0)
             {
                 return WrappedConstruct();
             }
             return _pool.Dequeue();
+        }
+        
+        public virtual T Borrow()
+        {
+            var value = WrappedBorrow();
+            (value as IReusable)?.OnBorrow();
+            return value;
         }
 
         public void Borrow(T[] target)
@@ -60,7 +67,7 @@ namespace Common.Pooling
             }
         }
 
-        public virtual void Return(T item)
+        protected void WrappedReturn(T item)
         {
             if (_pool.Count >= _capacity)
             {
@@ -70,6 +77,12 @@ namespace Common.Pooling
             {
                 _pool.Enqueue(item);
             }
+        }
+
+        public virtual void Return(T item)
+        {
+            (item as IReusable)?.OnReturn();
+            WrappedReturn(item);
         }
 
         public void Return(T[] items)
