@@ -8,16 +8,7 @@ namespace Common.Pooling
     public class ReusablePoolBehaviour<T> : MonoBehaviour, IPool<T>
         where T : MonoBehaviour, IReusable
     {
-        public enum EStartup
-        {
-            Manual,
-            Awake,
-            Start
-        }
-
         [Header("Initialization")]
-        [SerializeField]
-        protected EStartup _startup = EStartup.Start;
         [SerializeField]
         protected int _initialize = 1;
 
@@ -44,30 +35,30 @@ namespace Common.Pooling
             _pool.Dispose();
         }
 
-        public void Initialize()
-        {
-            if (_startup == EStartup.Manual)
-                _pool.Initialize(_initialize);
-        }
-
         protected virtual void Awake()
         {
             _pool = new ReusableBehaviourPool<T>(_capacity, _prefab);
-
-            if (_startup == EStartup.Awake)
-                _pool.Initialize(_initialize);
         }
 
         protected virtual void Start()
         {
-            if (_startup == EStartup.Start)
-                _pool.Initialize(_initialize);
+            _pool.Initialize(_initialize);
         }
 
-        private void OnDestroy()
+        protected virtual void OnDestroy()
         {
             Dispose();
         }
+
+#if UNITY_EDITOR
+        protected virtual void OnValidate()
+        {
+            if (_pool != null && _pool.Capacity != _capacity)
+            {
+                _pool.Capacity = _capacity;
+            }
+        }
+#endif
     }
 
     /// <summary>

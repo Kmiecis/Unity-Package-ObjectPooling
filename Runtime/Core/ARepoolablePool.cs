@@ -5,12 +5,21 @@ namespace Common.Pooling
     /// </summary>
     public abstract class ARepoolablePool<T> : APool<IRepoolable<T>>
     {
-        protected readonly IPool<T> _subpool;
+        protected readonly APool<T> _subpool;
 
-        public ARepoolablePool(int capacity, IPool<T> subpool) :
+        public ARepoolablePool(int capacity, APool<T> subpool) :
             base(capacity)
         {
             _subpool = subpool;
+        }
+
+        public override int Capacity
+        {
+            set
+            {
+                _subpool.Capacity = value;
+                base.Capacity = value;
+            }
         }
 
         public override void Dispose()

@@ -103,7 +103,7 @@ namespace Common.Pooling
             get => _pool.Count;
         }
 
-        public int Capacity
+        public virtual int Capacity
         {
             get => _capacity;
             set => _capacity = value;
