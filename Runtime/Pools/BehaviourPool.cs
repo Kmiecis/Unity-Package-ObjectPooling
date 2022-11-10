@@ -3,27 +3,28 @@
 namespace Common.Pooling
 {
     /// <summary>
-    /// <see cref="APool{T}"/> handling <see cref="MonoBehaviour"/> types
+    /// <see cref="UnityPool{T}"/> handling <see cref="MonoBehaviour"/> types
     /// </summary>
-    public class BehaviourPool<T> : APool<T>
+    [System.Serializable]
+    public class BehaviourPool<T> : UnityPool<T>
         where T : MonoBehaviour
     {
-        protected readonly T _prefab;
-
-        public BehaviourPool(int capacity, T prefab) :
-            base(capacity)
-        {
-            _prefab = prefab;
-        }
-
-        public override T Construct()
-        {
-            return Object.Instantiate(_prefab);
-        }
-
-        public override void Destroy(T item)
+        protected override void Destroy(T item)
         {
             Object.Destroy(item.gameObject);
+        }
+
+        public override T Borrow()
+        {
+            var item = base.Borrow();
+            item.gameObject.SetActive(true);
+            return item;
+        }
+
+        public override void Return(T item)
+        {
+            item.gameObject.SetActive(false);
+            base.Return(item);
         }
     }
 }

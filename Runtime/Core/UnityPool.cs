@@ -1,22 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Common.Pooling
 {
     /// <summary>
-    /// Base <see cref="IPool{T}"/> implementation
+    /// Unity specific <see cref="IPool{T}"/> implementation
     /// </summary>
-    public abstract class APool<T> : IPool<T>
+    [System.Serializable]
+    public class UnityPool<T> : IPool<T>
+        where T : Object
     {
-        protected readonly Queue<T> _pool;
-        protected int _constructed;
+        [SerializeField]
         protected int _capacity;
+        [SerializeField]
+        protected T _prefab;
 
-        public APool(int capacity)
-        {
-            _pool = new Queue<T>(capacity);
-            _capacity = capacity;
-        }
+        protected readonly Queue<T> _pool = new Queue<T>();
+        protected int _constructed = 0;
 
         public int Count
         {
@@ -41,7 +41,7 @@ namespace Common.Pooling
 
         public void Prewarm(int count)
         {
-            var constructed = Math.Min(count, _capacity);
+            var constructed = Mathf.Min(count, _capacity);
             for (int i = 0; i < constructed; ++i)
             {
                 Return(WrappedConstruct());
@@ -54,7 +54,10 @@ namespace Common.Pooling
             return Construct();
         }
 
-        protected abstract T Construct();
+        protected virtual T Construct()
+        {
+            return Object.Instantiate(_prefab);
+        }
 
         protected void WrappedDestroy(T item)
         {
@@ -62,7 +65,10 @@ namespace Common.Pooling
             Destroy(item);
         }
 
-        protected abstract void Destroy(T item);
+        protected virtual void Destroy(T item)
+        {
+            Object.Destroy(item);
+        }
 
         public void Borrow(T[] target)
         {

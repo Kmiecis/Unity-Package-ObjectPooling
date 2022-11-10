@@ -11,12 +11,12 @@
         {
         }
 
-        public override T Construct()
+        protected override T Construct()
         {
             return new T();
         }
 
-        public override void Destroy(T item)
+        protected override void Destroy(T item)
         {
             // Do nothing
         }

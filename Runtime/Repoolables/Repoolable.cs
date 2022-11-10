@@ -25,8 +25,13 @@
                 return _value;
             }
         }
-        
+
         public void Dispose()
+        {
+            Return();
+        }
+
+        public void Return()
         {
             if (_value != null)
             {

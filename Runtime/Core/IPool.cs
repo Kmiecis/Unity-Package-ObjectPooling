@@ -16,14 +16,5 @@ namespace Common.Pooling
         /// Call to return another item
         /// </summary>
         void Return(T item);
-
-        /// <summary>
-        /// Call to get/set pool capacity
-        /// </summary>
-        int Capacity
-        {
-            get;
-            set;
-        }
     }
 }
