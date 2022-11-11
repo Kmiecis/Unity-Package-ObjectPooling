@@ -11,7 +11,7 @@ namespace Common.Pooling
         where T : Object
     {
         [SerializeField]
-        protected int _capacity;
+        protected int _capacity = 1;
         [SerializeField]
         protected T _prefab;
 
