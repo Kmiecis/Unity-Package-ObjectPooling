@@ -3,11 +3,11 @@
 namespace Common.Pooling
 {
     /// <summary>
-    /// <see cref="UnityPool{T}"/> handling <see cref="MonoBehaviour"/> types
+    /// <see cref="UnityPool{T}"/> handling <see cref="Component"/> types
     /// </summary>
     [System.Serializable]
-    public class BehaviourPool<T> : UnityPool<T>
-        where T : MonoBehaviour
+    public class ComponentPool<T> : UnityPool<T>
+        where T : Component
     {
         protected override void Destroy(T item)
         {
