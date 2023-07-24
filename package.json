@@ -2,7 +2,7 @@
   "name": "com.common.object.pooling",
   "displayName": "Common Object Pooling",
   "author": {
-    "name": "Slawomir Kmiecik",
+    "name": "Kmiecis",
     "email": "slawekkmiecik@gmail.com"
   },
   "description": "Common object pooling implementation",
