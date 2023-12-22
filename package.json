@@ -1,14 +1,14 @@
 {
-  "name": "com.common.object.pooling",
-  "displayName": "Common Object Pooling",
+  "name": "com.kmiecis.object.pooling",
+  "displayName": "Object Pooling",
   "author": {
     "name": "Kmiecis",
     "email": "slawekkmiecik@gmail.com"
   },
-  "description": "Common object pooling implementation",
+  "description": "Simple and lightweight object pooling implementation",
   "version": "1.0.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/kmiecis/unity-package-objectpooling"
+    "url": "https://github.com/Kmiecis/Unity-Package-ObjectPooling.git"
   }
 }

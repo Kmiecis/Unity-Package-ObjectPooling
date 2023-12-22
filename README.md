@@ -1,4 +1,4 @@
-# Pooling
+# Object Pooling
 
 ## Description
 
@@ -7,7 +7,7 @@ A simple and lightweight object pooling implementation
 ## Installation
 
 Add the package via Package Manager by adding it from git URL:  
-`https://github.com/kmiecis/unity-package-objectpooling.git`  
+`https://github.com/Kmiecis/Unity-Package-ObjectPooling.git`  
 Package Manager can be found inside the Unity Editor in the Window tab
 
 OR
