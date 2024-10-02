@@ -14,6 +14,8 @@ namespace Common.Pooling
         protected int _capacity = 1;
         [SerializeField]
         protected T _prefab;
+        [SerializeField]
+        protected Transform _parent;
 
         protected readonly Queue<T> _pool = new Queue<T>();
         protected int _constructed = 0;
@@ -56,7 +58,7 @@ namespace Common.Pooling
 
         protected virtual T Construct()
         {
-            return Object.Instantiate(_prefab);
+            return Object.Instantiate(_prefab, _parent, false);
         }
 
         protected void WrappedDestroy(T item)
