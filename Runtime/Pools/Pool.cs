@@ -18,7 +18,7 @@
 
         protected override void Destroy(T item)
         {
-            // Do nothing
+            // no-op
         }
     }
 }

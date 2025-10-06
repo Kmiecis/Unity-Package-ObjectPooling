@@ -17,8 +17,9 @@ namespace Common.Pooling
         [SerializeField]
         protected Transform _parent;
 
-        protected readonly Queue<T> _pool = new Queue<T>();
-        protected int _constructed = 0;
+        protected readonly Queue<T> _pool;
+
+        protected int _constructed;
 
         public int Count
         {
@@ -41,48 +42,42 @@ namespace Common.Pooling
             set => _capacity = value;
         }
 
+        public UnityPool()
+        {
+            _pool = new Queue<T>();
+        }
+
         public void Prewarm(int count)
         {
-            var constructed = Mathf.Min(count, _capacity);
-            for (int i = 0; i < constructed; ++i)
+            var construct = Mathf.Min(count, _capacity);
+            for (int i = 0; i < construct; ++i)
             {
-                Return(WrappedConstruct());
-            }
-        }
-
-        protected T WrappedConstruct()
-        {
-            _constructed += 1;
-            return Construct();
-        }
-
-        protected virtual T Construct()
-        {
-            return Object.Instantiate(_prefab, _parent, false);
-        }
-
-        protected void WrappedDestroy(T item)
-        {
-            _constructed -= 1;
-            Destroy(item);
-        }
-
-        protected virtual void Destroy(T item)
-        {
-            Object.Destroy(item);
-        }
-
-        public void Borrow(T[] target)
-        {
-            for (int i = 0; i < target.Length; ++i)
-            {
-                target[i] = Borrow();
+                var constructed = WrappedConstruct();
+                Return(constructed);
             }
         }
 
         public virtual T Borrow()
         {
             return WrappedBorrow();
+        }
+
+        public virtual void Return(T item)
+        {
+            WrappedReturn(item);
+        }
+
+        public virtual void Clear()
+        {
+            while (_pool.TryDequeue(out var item))
+            {
+                WrappedDestroy(item);
+            }
+        }
+
+        public void Dispose()
+        {
+            Clear();
         }
 
         protected T WrappedBorrow()
@@ -94,17 +89,15 @@ namespace Common.Pooling
             return _pool.Dequeue();
         }
 
-        public void Return(T[] items)
+        protected T WrappedConstruct()
         {
-            for (int i = 0; i < items.Length; ++i)
-            {
-                Return(items[i]);
-            }
+            _constructed += 1;
+            return Construct();
         }
 
-        public virtual void Return(T item)
+        protected virtual T Construct()
         {
-            WrappedReturn(item);
+            return Object.Instantiate(_prefab, _parent, false);
         }
 
         protected void WrappedReturn(T item)
@@ -119,17 +112,15 @@ namespace Common.Pooling
             }
         }
 
-        public virtual void Clear()
+        protected void WrappedDestroy(T item)
         {
-            while (_pool.TryDequeue(out var item))
-            {
-                WrappedDestroy(item);
-            }
+            _constructed -= 1;
+            Destroy(item);
         }
 
-        public void Dispose()
+        protected virtual void Destroy(T item)
         {
-            Clear();
+            Object.Destroy(item);
         }
     }
 }
