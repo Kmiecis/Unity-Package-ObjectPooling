@@ -1,15 +1,15 @@
-﻿namespace Common
+﻿namespace Common.Pooling
 {
     public static class Extensions
     {
         #region IPool
-        public static Pooling.Repoolable<T> AsRepoolable<T>(this Pooling.IPool<T> self)
+        public static Repoolable<T> AsRepoolable<T>(this IPool<T> self)
             where T : class
         {
-            return new Pooling.Repoolable<T>(self);
+            return new Repoolable<T>(self);
         }
 
-        public static void Borrow<T>(this Pooling.IPool<T> self, T[] target)
+        public static void Borrow<T>(this IPool<T> self, T[] target)
         {
             for (int i = 0; i < target.Length; ++i)
             {
@@ -17,7 +17,7 @@
             }
         }
 
-        public static void Return<T>(this Pooling.IPool<T> self, T[] items)
+        public static void Return<T>(this IPool<T> self, T[] items)
         {
             for (int i = 0; i < items.Length; ++i)
             {
@@ -25,7 +25,7 @@
             }
         }
 
-        public static void Return<T>(this Pooling.IPool<T> self, ref T item)
+        public static void Return<T>(this IPool<T> self, ref T item)
             where T : class
         {
             if (item != null)
