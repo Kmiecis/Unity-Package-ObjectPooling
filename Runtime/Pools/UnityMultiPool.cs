@@ -22,15 +22,20 @@ namespace Common.Pooling
 
         protected int _constructed = 0;
 
-        public int Count
-        {
-            get => _constructed;
-        }
-
         public int Capacity
         {
             get => _capacity;
             set => _capacity = value;
+        }
+
+        public Transform Parent
+        {
+            get => _parent;
+        }
+
+        public int Count
+        {
+            get => _constructed;
         }
 
         public UnityMultiPool()

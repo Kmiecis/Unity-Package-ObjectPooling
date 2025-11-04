@@ -21,6 +21,17 @@ namespace Common.Pooling
 
         protected int _constructed;
 
+        public int Capacity
+        {
+            get => _capacity;
+            set => _capacity = value;
+        }
+
+        public Transform Parent
+        {
+            get => _parent;
+        }
+
         public int Count
         {
             get => _constructed;
@@ -34,12 +45,6 @@ namespace Common.Pooling
         public int InactiveCount
         {
             get => _pool.Count;
-        }
-
-        public int Capacity
-        {
-            get => _capacity;
-            set => _capacity = value;
         }
 
         public UnityPool()
