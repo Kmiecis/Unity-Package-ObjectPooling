@@ -24,7 +24,14 @@ namespace Common.Pooling
 
         protected override void Destroy(T item)
         {
-            Object.Destroy(item.gameObject);
+            if (Application.isPlaying)
+            {
+                Object.Destroy(item.gameObject);
+            }
+            else
+            {
+                Object.DestroyImmediate(item.gameObject);
+            }
         }
     }
 }

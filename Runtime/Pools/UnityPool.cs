@@ -102,7 +102,15 @@ namespace Common.Pooling
 
         protected virtual T Construct()
         {
-            return Object.Instantiate(_prefab, _parent, false);
+            if (Application.isPlaying)
+            {
+                return Object.Instantiate(_prefab, _parent);
+            }
+#if UNITY_EDITOR
+            return (T)UnityEditor.PrefabUtility.InstantiatePrefab(_prefab, _parent);
+#else
+            return null;
+#endif
         }
 
         protected void WrappedReturn(T item)
@@ -125,7 +133,14 @@ namespace Common.Pooling
 
         protected virtual void Destroy(T item)
         {
-            Object.Destroy(item);
+            if (Application.isPlaying)
+            {
+                Object.Destroy(item);
+            }
+            else
+            {
+                Object.DestroyImmediate(item);
+            }
         }
     }
 }
