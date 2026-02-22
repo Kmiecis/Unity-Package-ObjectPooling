@@ -1,4 +1,6 @@
-﻿namespace Common.Pooling
+﻿using System.Collections.Generic;
+
+namespace Common.Pooling
 {
     public static class Extensions
     {
@@ -22,6 +24,14 @@
             for (int i = 0; i < items.Length; ++i)
             {
                 self.Return(items[i]);
+            }
+        }
+        
+        public static void Return<T>(this IPool<T> self, IEnumerable<T> items)
+        {
+            foreach (var item in items)
+            {
+                self.Return(item);
             }
         }
 

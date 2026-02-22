@@ -34,15 +34,15 @@ namespace Common.Pooling
 
         public int Count
         {
-            get => _constructed;
-        }
-
-        public int ActiveCount
-        {
             get => _constructed - _pool.Count;
         }
 
-        public int InactiveCount
+        public int Constructed
+        {
+            get => _constructed;
+        }
+
+        public int Inactive
         {
             get => _pool.Count;
         }
