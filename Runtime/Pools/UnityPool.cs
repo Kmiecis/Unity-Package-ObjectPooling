@@ -115,7 +115,7 @@ namespace Common.Pooling
 
         protected void WrappedReturn(T item)
         {
-            if (_pool.Count >= _capacity)
+            if (_capacity > -1 && _pool.Count >= _capacity)
             {
                 WrappedDestroy(item);
             }

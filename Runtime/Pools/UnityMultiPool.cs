@@ -123,7 +123,7 @@ namespace Common.Pooling
         {
             var pool = GetOrCreatePool<U>();
 
-            if (pool.Count >= _capacity)
+            if (_capacity > -1 && pool.Count >= _capacity)
             {
                 WrappedDestroy(item);
             }

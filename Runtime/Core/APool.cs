@@ -9,12 +9,18 @@ namespace Common.Pooling
     public abstract class APool<T> : IPool<T>
     {
         protected readonly Queue<T> _pool;
+
         protected int _constructed;
         protected int _capacity;
 
+        public APool() :
+            this(-1)
+        {
+        }
+
         public APool(int capacity)
         {
-            _pool = new Queue<T>(capacity);
+            _pool = new Queue<T>(Math.Max(capacity, 4));
             _capacity = capacity;
         }
 
@@ -51,6 +57,7 @@ namespace Common.Pooling
         protected T WrappedConstruct()
         {
             _constructed += 1;
+
             return Construct();
         }
 
@@ -59,6 +66,7 @@ namespace Common.Pooling
         protected void WrappedDestroy(T item)
         {
             _constructed -= 1;
+
             Destroy(item);
         }
 
@@ -101,7 +109,7 @@ namespace Common.Pooling
 
         protected void WrappedReturn(T item)
         {
-            if (_pool.Count >= _capacity)
+            if (_capacity > -1 && _pool.Count >= _capacity)
             {
                 WrappedDestroy(item);
             }

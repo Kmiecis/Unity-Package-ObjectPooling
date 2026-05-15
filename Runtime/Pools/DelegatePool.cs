@@ -8,12 +8,13 @@ namespace Common.Pooling
     public sealed class DelegatePool<T> : APool<T>
         where T : class
     {
-        private Func<T> _constructor;
-        private Action<T> _destructor;
+        private readonly Func<T> _constructor;
+        private readonly Action<T> _destructor;
+
         private Action<T> _onBorrow;
         private Action<T> _onReturn;
 
-        public DelegatePool(Func<T> constructor, Action<T> destructor, int capacity) :
+        public DelegatePool(Func<T> constructor, Action<T> destructor, int capacity = -1) :
             base(capacity)
         {
             _constructor = constructor;
